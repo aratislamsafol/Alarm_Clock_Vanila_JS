@@ -24,10 +24,7 @@ let forHours=Time(12,0);
 let forMini=Time(59,1);
 let ampm=Time(2,2);
 
-let alarmTime, isAlarmSet,
-ringtone = new Audio("./files/ringtone.mp3");
-
-function setTime(){
+setInterval(()=>{
     let date=new Date();
     let hours=date.getHours();
     let Minutes=date.getMinutes();
@@ -43,10 +40,33 @@ function setTime(){
     seconds = seconds < 10 ? "0" + seconds : seconds;
 
     currentTime.innerHTML=`${hours}:${Minutes}:${seconds}:${ampm}`
+})
+// function setTime(){
 
-}
-setTime()
+// }
+// setTime()
+
+let alarmTime, isAlarmSet,
+ringtone = new Audio("./files/ringtone.mp3");
 
 function setAlarm(){
-    
+    if(isAlarmSet){
+        alarmTime = "";
+        ringtone.pause();
+        content.classList.remove("disable");
+        btn.innerText = "Set Alarm";
+        return isAlarmSet = false;
+    }
+
+    let time = `${select[0].value}:${select[1].value} ${select[2].value}`;
+    if (time.includes("Hour") || time.includes("Minute") || time.includes("AM/PM")) {
+        return alert("Please, select a valid time to set Alarm!");
+    }
+
+    alarmTime = time;
+    isAlarmSet = true;
+    content.classList.add("disable");
+    btn.innerText = "Clear Alarm";
 }
+
+btn.addEventListener("click", setAlarm);

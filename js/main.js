@@ -3,6 +3,8 @@ const select=document.querySelectorAll('select');
 const currentTime=document.querySelector('h1');
 const btn=document.querySelector('button')
 
+let alarmTime, isAlarmSet,
+ringtone = new Audio("./files/ringtone.mp3");
 // Create For Hour
 function Time(max_num,select_Value){
     if(select_Value==2){
@@ -40,14 +42,16 @@ setInterval(()=>{
     seconds = seconds < 10 ? "0" + seconds : seconds;
 
     currentTime.innerHTML=`${hours}:${Minutes}:${seconds}:${ampm}`
+
+    if (alarmTime === `${hours}:${Minutes} ${ampm}`) {
+        ringtone.play();
+        ringtone.loop = true;
+    }
 })
 // function setTime(){
 
 // }
 // setTime()
-
-let alarmTime, isAlarmSet,
-ringtone = new Audio("./files/ringtone.mp3");
 
 function setAlarm(){
     if(isAlarmSet){
